@@ -72,30 +72,32 @@ To get a local copy up and running, follow these simple steps.
   * Dart 2.19+
 
 ### Folder Structure
+
 TVSHOWS/
 └── lib/
-    ├── 📊 models/
+    ├── models/
     │   ├── show_model.dart
     │   └── show_model.g.dart
-    ├── 🎛️ providers/
+    ├── providers/
     │   ├── favorites_provider.dart
     │   ├── home_provider.dart
     │   ├── search_provider.dart
     │   └── theme_provider.dart
-    ├── 📱 screens/
+    ├── screens/
     │   ├── favorites_screen.dart
     │   ├── home_screen.dart
     │   ├── search_screen.dart
     │   └── show_details_page.dart
-    ├── 🔧 services/
+    ├── services/
     │   ├── hive_service.dart
     │   └── tvmaze_service.dart
-    ├── 🛠️ utils/
+    ├── utils/
     │   └── enums.dart
-    ├── 🎨 widgets/
+    ├── widgets/
     │   ├── filter_chips.dart
     │   └── show_card.dart
-    └── 🚀 main.dart
+    └── main.dart
+
 ### Steps
 
 1.  **Clone the Repository:**
