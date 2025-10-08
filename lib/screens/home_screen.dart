@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // Note new imports:
-import 'package:tvshows/providers/home_provider.dart'; 
+import 'package:tvshows/providers/home_provider.dart';
+import 'package:tvshows/providers/theme_provider.dart'; 
 import 'package:tvshows/utils/enums.dart'; 
 import 'package:tvshows/screens/show_details_page.dart';
 import 'package:tvshows/widgets/show_card.dart';
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.brightness_4),
             onPressed: () {
-              // TODO: Call ThemeProvider.toggleTheme()
+              Provider.of<ThemeProvider>(context,listen:false).toggleTheme();
             },
           ),
         ],

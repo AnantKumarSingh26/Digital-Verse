@@ -1,57 +1,19 @@
 // lib/screens/search_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // NEW
+import 'package:tvshows/providers/search_provider.dart'; // NEW
 import 'package:tvshows/utils/enums.dart';
 import 'package:tvshows/widgets/show_card.dart';
+import 'package:tvshows/screens/show_details_page.dart'; // NEW
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
   const SearchScreen({super.key});
 
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  // Local state to simulate the UI state managed by the SearchProvider later
-  UIState _currentState = UIState.initial;
-  final List<int> _searchResults = [];
-  final TextEditingController _searchController = TextEditingController();
-
-  // Dummy function to simulate a search delay and state change
-  void _performDummySearch(String query) async {
-    if (query.isEmpty) {
-      setState(() {
-        _currentState = UIState.initial;
-        _searchResults.clear();
-      });
-      return;
-    }
-
-    setState(() {
-      _currentState = UIState.loading;
-      _searchResults.clear();
-    });
-
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 2));
-
-    // Simulate success/error condition
-    if (query.toLowerCase() == 'error') {
-      setState(() {
-        _currentState = UIState.error;
-      });
-    } else {
-      // Simulate getting 5 results
-      setState(() {
-        _searchResults.addAll(List.generate(5, (index) => index));
-        _currentState = UIState.success;
-      });
-    }
-  }
-  
-  // Widget to display based on the current UI state
-  Widget _buildStateWidget(UIState state) {
-    switch (state) {
+  // Helper function to build the main content based on state
+  Widget _buildContent(BuildContext context, SearchProvider provider) {
+    // 1. Check for Loading, Error, or Initial states
+    switch (provider.state) {
       case UIState.initial:
         return const Center(
           child: Column(
@@ -64,26 +26,29 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         );
       case UIState.loading:
-        // Placeholder for Custom Lottie animations (Bonus Addon)
-        return const Center(child: CircularProgressIndicator()); 
+        return const Center(child: CircularProgressIndicator());
       case UIState.error:
+        // Note: The error message is handled internally by the provider for now.
         return const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.warning_amber_rounded, size: 80, color: Colors.red),
               SizedBox(height: 16),
-              Text('An error occurred. Please try again.', style: TextStyle(fontSize: 16)),
+              Text('An error occurred. Check your network.', style: TextStyle(fontSize: 16)),
             ],
           ),
         );
+      
+      // 2. Success State: Build the GridView
       case UIState.success:
-        if (_searchResults.isEmpty) {
+        if (provider.searchResults.isEmpty) {
           return const Center(child: Text('No results found for your search.'));
         }
+        
         return GridView.builder(
           padding: const EdgeInsets.all(16.0),
-          itemCount: _searchResults.length,
+          itemCount: provider.searchResults.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
@@ -91,12 +56,29 @@ class _SearchScreenState extends State<SearchScreen> {
             childAspectRatio: 0.65,
           ),
           itemBuilder: (context, index) {
+            final show = provider.searchResults[index];
+            
+            // Display REAL DATA from the API response!
             return ShowCard(
-              heroTag: 'search_show_$index',
-              title: 'Search Result ${index + 1}',
-              imageUrl: 'https://via.placeholder.com/210x295.png?text=Search+R${index + 1}',
+              heroTag: 'search_show_${show.id}',
+              title: show.name ?? 'No Title',
+              imageUrl: show.imageUrl,
+              rating: show.rating,
               onTap: () {
-                // TODO: Navigate to ShowDetailsPage
+                // Navigate to ShowDetailsPage with real data
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ShowDetailsPage(
+                      id: show.id,
+                      heroTag: 'search_show_${show.id}',
+                      title: show.name ?? 'No Title',
+                      imageUrl: show.imageUrl,
+                      rating: show.rating,
+                      summary: show.summary,
+                      genres: show.genres,
+                    ),
+                  ),
+                );
               },
             );
           },
@@ -106,28 +88,35 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the provider instance to access methods
+    final searchProvider = Provider.of<SearchProvider>(context, listen: false); 
+    
     return Scaffold(
       appBar: AppBar(
         title: TextField(
-          controller: _searchController,
-          onSubmitted: _performDummySearch,
+          // Use onSubmitted to trigger search when the user hits Enter/Done
+          onSubmitted: (query) => searchProvider.searchShows(query), 
           decoration: const InputDecoration(
             hintText: 'Search shows by name...',
             border: InputBorder.none,
           ),
         ),
-        // Add a clear button
         actions: [
           IconButton(
             icon: const Icon(Icons.clear),
             onPressed: () {
-              _searchController.clear();
-              _performDummySearch('');
+              // Clear the results when the clear button is pressed
+              searchProvider.searchShows(''); 
             },
           ),
         ],
       ),
-      body: _buildStateWidget(_currentState),
+      // Use Consumer to rebuild the body only when the state changes
+      body: Consumer<SearchProvider>(
+        builder: (context, provider, child) {
+          return _buildContent(context, provider);
+        },
+      ),
     );
   }
 }
