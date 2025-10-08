@@ -103,8 +103,17 @@ To get a local copy up and running, follow these simple steps.
 
 ## 📸 Screenshots & Demo
 
+### 🌞 Light Mode & Dark Mode
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Home Screen](image.png) | ![Dark Mode](image-1.png) |
 
-| Home Screen (Light Mode) | Search Screen (Loading State) |  Dark Mode |
-| ![App UI](image.png) | ![Search Screen](image-3.png) | ![Dark Mode](image-1.png) |
-| Favorites Screen | Upcoming Filter |  
-|![Favorites Screen](image-2.png)|![Upcoming Filter](image-4.png)|
+### 🔍 Search & Filter
+| Search Screen (Loading State) | Upcoming Filter |
+|-------------------------------|-----------------|
+| ![Search Screen](image-3.png) | ![Upcoming Filter](image-4.png) |
+
+### ❤️ Favorites
+| Favorites Screen |
+|------------------|
+| ![Favorites Screen](image-2.png) |
