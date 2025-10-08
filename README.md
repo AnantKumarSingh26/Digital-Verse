@@ -71,13 +71,43 @@ To get a local copy up and running, follow these simple steps.
   * Flutter SDK (stable channel)
   * Dart 2.19+
 
+### Folder Structure
+
+TVSHOWS/
+
+│
+├── lib/
+│   ├── models/
+│   │   ├── show_model.dart
+│   │   └── show_model.g.dart
+│   ├── providers/
+│   │   ├── favorites_provider.dart
+│   │   ├── home_provider.dart
+│   │   ├── search_provider.dart
+│   │   └── theme_provider.dart
+│   ├── screens/
+│   │   ├── favorites_screen.dart
+│   │   ├── home_screen.dart
+│   │   ├── search_screen.dart
+│   │   └── show_details_page.dart
+│   ├── services/
+│   │   ├── hive_service.dart
+│   │   └── tvmaze_service.dart
+│   ├── utils/
+│   │   └── enums.dart
+│   ├── widgets/
+│   │   ├── filter_chips.dart
+│   │   └── show_card.dart
+│   └── main.dart
+|
+
+
 ### Steps
 
 1.  **Clone the Repository:**
 
     ```bash
-    git clone [YOUR_REPO_URL]
-    cd smollan_movie_verse
+    git clone https://github.com/AnantKumarSingh26/Digital-Verse.git
     ```
 
 2.  **Install Dependencies:**
