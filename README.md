@@ -72,7 +72,7 @@ To get a local copy up and running, follow these simple steps.
   * Dart 2.19+
 
 ### Folder Structure
-
+```
 TVSHOWS/
 └── lib/
     ├── models/
@@ -97,7 +97,7 @@ TVSHOWS/
     │   ├── filter_chips.dart
     │   └── show_card.dart
     └── main.dart
-
+```
 ### Steps
 
 1.  **Clone the Repository:**
