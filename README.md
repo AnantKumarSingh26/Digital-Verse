@@ -102,19 +102,9 @@ To get a local copy up and running, follow these simple steps.
 -----
 
 ## 📸 Screenshots & Demo
-**App UI**
-![App UI](image.png)
-**Dark Mode**
-![Dark Mode](image-1.png)
-**Favorites Screen**
-![Favorites Screen](image-2.png)
-**Search Screen**
-![Search Screen](image-3.png)
-**Upcoming Filter**
-![Upcoming Filter](image-4.png)
 
-*(Replace these placeholders with actual images or a GIF of your running app)*
 
-| Home Screen (Light Mode) | Search Screen (Loading State) | Show Details (Dark Mode) |
-| :---: | :---: | :---: |
-|  |  |  |
+| Home Screen (Light Mode) | Search Screen (Loading State) |  Dark Mode |
+| ![App UI](image.png) | ![Search Screen](image-3.png) | ![Dark Mode](image-1.png) |
+| Favorites Screen | Upcoming Filter |  
+|![Favorites Screen](image-2.png)|![Upcoming Filter](image-4.png)|
