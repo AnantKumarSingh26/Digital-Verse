@@ -1,18 +1,18 @@
-// lib/screens/search_screen.dart
+
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // NEW
-import 'package:tvshows/providers/search_provider.dart'; // NEW
+import 'package:provider/provider.dart'; 
+import 'package:tvshows/providers/search_provider.dart'; 
 import 'package:tvshows/utils/enums.dart';
 import 'package:tvshows/widgets/show_card.dart';
-import 'package:tvshows/screens/show_details_page.dart'; // NEW
+import 'package:tvshows/screens/show_details_page.dart'; 
 
-class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
+class SearchScreen extends StatelessWidget { 
   const SearchScreen({super.key});
 
-  // Helper function to build the main content based on state
+  
   Widget _buildContent(BuildContext context, SearchProvider provider) {
-    // 1. Check for Loading, Error, or Initial states
+    
     switch (provider.state) {
       case UIState.initial:
         return const Center(
@@ -28,7 +28,7 @@ class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
       case UIState.loading:
         return const Center(child: CircularProgressIndicator());
       case UIState.error:
-        // Note: The error message is handled internally by the provider for now.
+        
         return const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
           ),
         );
       
-      // 2. Success State: Build the GridView
+      
       case UIState.success:
         if (provider.searchResults.isEmpty) {
           return const Center(child: Text('No results found for your search.'));
@@ -58,14 +58,14 @@ class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
           itemBuilder: (context, index) {
             final show = provider.searchResults[index];
             
-            // Display REAL DATA from the API response!
+            
             return ShowCard(
               heroTag: 'search_show_${show.id}',
               title: show.name ?? 'No Title',
               imageUrl: show.imageUrl,
               rating: show.rating,
               onTap: () {
-                // Navigate to ShowDetailsPage with real data
+                
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ShowDetailsPage(
@@ -88,13 +88,13 @@ class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    // Get the provider instance to access methods
+    
     final searchProvider = Provider.of<SearchProvider>(context, listen: false); 
     
     return Scaffold(
       appBar: AppBar(
         title: TextField(
-          // Use onSubmitted to trigger search when the user hits Enter/Done
+          
           onSubmitted: (query) => searchProvider.searchShows(query), 
           decoration: const InputDecoration(
             hintText: 'Search shows by name...',
@@ -105,13 +105,13 @@ class SearchScreen extends StatelessWidget { // CHANGED to StatelessWidget
           IconButton(
             icon: const Icon(Icons.clear),
             onPressed: () {
-              // Clear the results when the clear button is pressed
+              
               searchProvider.searchShows(''); 
             },
           ),
         ],
       ),
-      // Use Consumer to rebuild the body only when the state changes
+      
       body: Consumer<SearchProvider>(
         builder: (context, provider, child) {
           return _buildContent(context, provider);

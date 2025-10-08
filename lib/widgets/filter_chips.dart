@@ -1,16 +1,16 @@
-// lib/widgets/filter_chips.dart
+
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // New Import
+import 'package:provider/provider.dart'; 
 import 'package:tvshows/utils/enums.dart';
-import 'package:tvshows/providers/home_provider.dart'; // New Import
+import 'package:tvshows/providers/home_provider.dart'; 
 
-class FilterChips extends StatelessWidget { // Changed to StatelessWidget
+class FilterChips extends StatelessWidget { 
   const FilterChips({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Use Consumer to listen only to the necessary parts of HomeProvider
+    
     return Consumer<HomeProvider>(
       builder: (context, homeProvider, child) {
         return SingleChildScrollView(
@@ -32,7 +32,7 @@ class FilterChips extends StatelessWidget { // Changed to StatelessWidget
                   
                   onSelected: (bool selected) {
                     if (selected) {
-                      // Call the provider method to change the category and fetch new data
+                      
                       homeProvider.fetchShows(category);
                     }
                   },

@@ -1,12 +1,12 @@
-// lib/screens/show_details_page.dart
+
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // New Import
-import 'package:tvshows/providers/favorites_provider.dart'; // New Import
-import 'package:tvshows/models/show_model.dart'; //
+import 'package:provider/provider.dart'; 
+import 'package:tvshows/providers/favorites_provider.dart'; 
+import 'package:tvshows/models/show_model.dart'; 
 
 class ShowDetailsPage extends StatelessWidget {
-  // Requires the unique tag and data needed for display
+  
   final int id;
   final String heroTag;
   final String title;
@@ -30,18 +30,18 @@ class ShowDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Default values for placeholders
+    
     final String displaySummary =
         summary ?? 'No summary available for this show.';
     final List<String> displayGenres = genres ?? ['Unknown'];
 
     return Scaffold(
-      // We use a CustomScrollView to allow the app bar and content to scroll together
+      
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 300.0,
-            pinned: true, // App bar remains visible at the top
+            pinned: true, 
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 title,
@@ -51,9 +51,9 @@ class ShowDetailsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // --- Hero Animation Destination ---
+              
               background: Hero(
-                tag: heroTag, // MUST match the tag from the ShowCard
+                tag: heroTag, 
                 child: imageUrl != null
                     ? Image.network(imageUrl!, fit: BoxFit.cover)
                     : Container(
@@ -71,7 +71,7 @@ class ShowDetailsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // --- Rating ---
+                    
                     if (rating != null && rating! > 0)
                       Row(
                         children: [
@@ -85,7 +85,7 @@ class ShowDetailsPage extends StatelessWidget {
                       ),
                     const Divider(height: 32),
 
-                    // --- Genres ---
+                    
                     Text('Genres', style: theme.textTheme.titleLarge),
                     const SizedBox(height: 8),
                     Wrap(
@@ -97,15 +97,15 @@ class ShowDetailsPage extends StatelessWidget {
                     ),
                     const Divider(height: 32),
 
-                    // --- Summary ---
+                    
                     Text('Summary', style: theme.textTheme.titleLarge),
                     const SizedBox(height: 8),
-                    // Remove HTML tags often present in TVMaze summary
+                    
                     Text(
                       displaySummary.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ''),
                       style: theme.textTheme.bodyLarge,
                     ),
-                    const SizedBox(height: 100), // Space for FAB
+                    const SizedBox(height: 100), 
                   ],
                 ),
               ),
@@ -114,13 +114,13 @@ class ShowDetailsPage extends StatelessWidget {
         ],
       ),
 
-      // --- Save/Remove Favorite Button ---
-      // --- Find the FloatingActionButton in ShowDetailsPage ---
+      
+      
       floatingActionButton: Consumer<FavoritesProvider>(
         builder: (context, favoritesProvider, child) {
-          // Create the model object needed by the provider
+          
           final currentShow = ShowModel(
-            id: id, // Assuming you passed ID to constructor
+            id: id, 
             name: title,
             imageUrl: imageUrl,
             rating: rating,
@@ -131,11 +131,11 @@ class ShowDetailsPage extends StatelessWidget {
           final isFav = favoritesProvider.isFavorite(currentShow.id);
 
           return FloatingActionButton(
-            heroTag: 'fab_tag', // Needs a unique tag if using multiple FABs
+            heroTag: 'fab_tag', 
             onPressed: () {
               favoritesProvider.toggleFavorite(currentShow);
             },
-            // Icon changes based on status
+            
             child: Icon(
               isFav ? Icons.favorite : Icons.favorite_border,
               color: isFav ? Colors.red : null,

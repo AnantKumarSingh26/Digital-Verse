@@ -1,8 +1,8 @@
-// lib/screens/home_screen.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// Note new imports:
+
 import 'package:tvshows/providers/home_provider.dart';
 import 'package:tvshows/providers/theme_provider.dart'; 
 import 'package:tvshows/utils/enums.dart'; 
@@ -16,7 +16,7 @@ import 'package:tvshows/screens/favorites_screen.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // Helper function to show UI based on state
+  
   Widget _buildStateWidget(UIState state, List<dynamic> items, String? error) {
     if (state == UIState.loading || state == UIState.initial) {
       return const Center(child: CircularProgressIndicator());
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
       return const Center(child: Text('No shows found for this category.'));
     }
     
-    // Default success state: returns null, meaning the GridView will be shown
+    
     return const SizedBox.shrink(); 
   }
 
@@ -81,17 +81,17 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Filter Chips (We will update this widget next)
+          
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: FilterChips(), 
           ),
           
-          // --- CONSUMER: Listen to HomeProvider ---
+          
           Expanded(
             child: Consumer<HomeProvider>(
               builder: (context, provider, child) {
-                // Check if we should display an error, loading, or empty state
+                
                 final stateWidget = _buildStateWidget(
                   provider.state, 
                   provider.shows, 
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   return stateWidget;
                 }
                 
-                // If state is success and shows are available, display the GridView
+                
                 return GridView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   itemCount: provider.shows.length, 
@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                       imageUrl: show.imageUrl,
                       rating: show.rating,
                       onTap: () {
-                        // Navigate to ShowDetailsPage with real data
+                        
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ShowDetailsPage(

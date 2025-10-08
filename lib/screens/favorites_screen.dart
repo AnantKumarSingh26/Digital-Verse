@@ -1,4 +1,4 @@
-// lib/screens/favorites_screen.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:tvshows/widgets/show_card.dart';
@@ -9,11 +9,11 @@ import 'package:tvshows/screens/show_details_page.dart';
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
-  // Dummy list of favorite IDs (will be replaced by Hive data from Provider)
-  final List<int> dummyFavorites = const []; // Currently empty for testing empty state
-  // final List<int> dummyFavorites = const [1, 2, 3]; // Uncomment to test data view
+  
+  final List<int> dummyFavorites = const []; 
+  
 
-  // Widget to show when the list is empty
+  
   Widget _buildEmptyState() {
     return const Center(
       child: Padding(
@@ -33,7 +33,7 @@ class FavoritesScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            // Placeholder for Custom Lottie animation for empty states (Bonus Addon)
+            
           ],
         ),
       ),
@@ -42,7 +42,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
 Widget build(BuildContext context) {
-  // Listen to the FavoritesProvider
+  
   return Consumer<FavoritesProvider>(
     builder: (context, favoritesProvider, child) {
       final favoriteShows = favoritesProvider.favorites;
@@ -50,7 +50,7 @@ Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(title: const Text('My Favorites')),
         body: favoriteShows.isEmpty
-            ? _buildEmptyState() // Your existing empty state widget
+            ? _buildEmptyState() 
             : GridView.builder(
                 padding: const EdgeInsets.all(16.0),
                 itemCount: favoriteShows.length,
@@ -78,7 +78,7 @@ Widget build(BuildContext context) {
                             rating: show.rating,
                             summary: show.summary,
                             genres: show.genres,
-                            // Ensure you pass all required details
+                            
                           ),
                         ),
                       );
