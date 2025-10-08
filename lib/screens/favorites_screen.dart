@@ -71,6 +71,7 @@ Widget build(BuildContext context) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => ShowDetailsPage(
+                            id:show.id,
                             heroTag: 'fav_show_${show.id}',
                             title: show.name ?? 'No Title',
                             imageUrl: show.imageUrl,

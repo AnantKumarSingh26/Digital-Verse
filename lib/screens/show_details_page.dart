@@ -7,6 +7,7 @@ import 'package:tvshows/models/show_model.dart'; //
 
 class ShowDetailsPage extends StatelessWidget {
   // Requires the unique tag and data needed for display
+  final int id;
   final String heroTag;
   final String title;
   final String? imageUrl;
@@ -16,6 +17,7 @@ class ShowDetailsPage extends StatelessWidget {
 
   const ShowDetailsPage({
     super.key,
+    required this.id,
     required this.heroTag,
     required this.title,
     this.imageUrl,
